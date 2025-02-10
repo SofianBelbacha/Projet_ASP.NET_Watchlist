@@ -50,6 +50,17 @@ Watchlist est une application ASP.NET Core permettant aux utilisateurs de gérer
 │-- Program.cs          # Point d'entrée de l'application
 ```
 
+## 🔑 Informations de Connexion Admin
+
+```
+
+| 🎭 Rôle   | 📧 Email                | 🔑 Mot de passe  |
+|----------|----------------------|--------------|
+| 🛠 Admin  | `admin@watchlist.com` | `5WS2Kb£?u2(3` |
+
+📌 **Remarque** : Pour des raisons de sécurité, il est recommandé de **changer ces informations** après installation.
+
+
 ## 🛠️ Contribution
 
 Les contributions sont les bienvenues ! 🚀

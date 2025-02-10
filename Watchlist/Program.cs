@@ -11,7 +11,7 @@ namespace Watchlist
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -63,12 +63,12 @@ namespace Watchlist
             app.UseAuthentication();
             app.UseAuthorization();
 
-            /*using (var scope = app.Services.CreateScope())
+            using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 var logger = services.GetRequiredService<ILogger<IdentitySeeder>>();
                 await IdentitySeeder.SeedRolesAndAdmin(services, logger);
-            }*/
+            }
 
             app.MapControllerRoute(
                 name: "areas",
