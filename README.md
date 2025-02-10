@@ -20,7 +20,7 @@ Watchlist est une application ASP.NET Core permettant aux utilisateurs de gérer
 
 1. **Cloner le projet**
    ```sh
-   git clone https://github.com/ton-utilisateur/watchlist.git
+   git clone https://github.com/SofianBelbacha/Projet_ASP.NET_Watchlist.git
    cd watchlist
    ```
 
