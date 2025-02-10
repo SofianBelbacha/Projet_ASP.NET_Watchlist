@@ -1,0 +1,100 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+@model X.PagedList.IPagedList<Watchlist.Models.ModeleVueFilm>
+@{
+    var searchQuery = Context.Request.Query["searchQuery"];
+    var sortOption = Context.Request.Query["sortOption"];
+    var currentPageSize = Context.Request.Query["pageSize"];
+    var actionName = (ViewContext.RouteData.Values["area"]?.ToString() == "Admin") ? "Index" : "Index";
+}
+
+
+<p class="mb-30 ff-montserrat">Films trouvés : @ViewBag.TotalFilms</p>
+<button id="backBtn" data-val="False" class="btn" style="display: none;">
+    <a href="/Films" style="
+    color: black;
+    text-decoration: underline;
+    font-weight: bolder;
+    font-size: 20px;
+"> &lt; back</a>
+</button>
+<!-- modification à apporter -->
+@if (Model != null)
+{
+    @foreach (var film in Model)
+    {
+    <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
+        <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
+            <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
+                <img src="@(!string.IsNullOrEmpty(film.CouvertureUrl) ? film.CouvertureUrl : "/img/Covers/default-cover.jpg")" style="width: 100px;">
+            </div>
+                <div class="job-content px-5">
+                    <div class="main-info d-flex flex-lg-row flex-column justify-content-center align-items-center">
+                    <h5 class="text-center text-md-left" style="margin: 0;">@film.Titre</h5>
+                    <span class="badge ms-3" style="background-color: var(--background-color);--background-color: rgba(0, 0, 0, 0.8);">
+                        @film.MoyenneNote /10
+                    </span>
+                </div>
+                <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
+                    <li class="mr-md-4">
+                        <i class="zmdi zmdi-calendar" style="margin-right: 5px;"></i>@film.Annee
+                    </li>
+                    <li class="mr-md-4">
+                        <i class="zmdi zmdi-account-circle mr-2"></i> @film.Autheur
+                    </li>
+                    <li class="mr-md-4">
+                        <i class="zmdi zmdi-time mr-2"></i> @film.Durée
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="job-right my-4 flex-shrink-0">
+            @if (ViewContext.RouteData.Values["area"]?.ToString() == "Admin")
+            {
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="adminDropdownMenu"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        Actions
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="adminDropdownMenu">
+                        <li><a class="dropdown-item" href="@Url.Action("Edit", "Films", new { id = film.IdFilm })">Modifier</a></li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="@Url.Action("Delete", "Films", new { id = film.IdFilm })"
+                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?');">Supprimer</a>
+                        </li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <button id="@film.IdFilm" data-val="@film.PresentDansListe" class="btn btnAjoutSuppr">
+                    @(film.PresentDansListe ? "Supprimer" : "Ajouter")
+                </button>
+            }
+        </div>
+
+
+        </div>
+        
+    }
+}
+<nav aria-label="Page navigation">
+    @Html.PagedListPager(Model, page =>
+            Url.Action(actionName, new
+            {
+                page,
+                searchQuery = searchQuery,
+                sortOption = sortOption,
+                pageSize = currentPageSize
+            }),
+            new PagedListRenderOptions
+    {
+        Display = PagedListDisplayMode.IfNeeded,
+        UlElementClasses = new[] { "pagination", "justify-content-center" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" },
+        ActiveLiElementClass = "active"
+    })
+</nav>
+

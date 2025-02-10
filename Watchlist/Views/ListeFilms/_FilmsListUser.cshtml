@@ -1,0 +1,74 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+@model X.PagedList.IPagedList<Watchlist.Models.ModeleVueFilm>
+
+@{
+    var currentSearchQuery = Context.Request.Query["searchQuery"];
+    var currentFilter = Context.Request.Query["filter"];
+    var currentPageSize = Context.Request.Query["pageSize"];
+
+}
+
+
+@foreach (var film in Model)
+{
+    <div class="candidate-list-box card mt-4">
+        <div class="p-4 card-body">
+            <div class="align-items-center row">
+                <div class="col-auto">
+                    <div class="candidate-list-images">
+                        <a href="#"><img src="@(!string.IsNullOrEmpty(film.CouvertureUrl) ? film.CouvertureUrl : "/img/Covers/default-cover.jpg")" alt="" class="avatar-md" /></a>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="candidate-list-content mt-3 mt-lg-0">
+                        <h5 class="fs-19 mb-0">
+                            <a class="primary-link" href="#">@film.Titre</a>
+                            <span class="badge ms-1 @(film.Note >= 7 ? "bg-success" : (film.Note >= 4 && film.Note <= 6 ? "bg-warning" : "bg-danger"))">
+                                <i class="mdi mdi-star align-middle"></i> @film.Note
+                            </span>
+                        </h5>
+                        <p class="text-muted mb-2">@film.Annee</p>
+                        <ul class="list-inline mb-0 text-muted">
+                            <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> @film.Autheur</li>
+                            <li class="list-inline-item"><i class="mdi mdi-wallet"></i> @film.Durée</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="favorite-icon">
+                <div class="dropdown">
+                    <a class="text-dark" href="#" role="button" id="dropdownMenuLink-@film.IdFilm" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="mdi mdi-dots-vertical fs-18"></i>
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink-@film.IdFilm">
+                        <li>
+                            <a class="dropdown-item" asp-controller="ListeFilms" asp-action="Edit" asp-route-id="@film.IdFilm">
+                                <i class="mdi mdi-pencil"></i> Modifier
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-item text-danger" onclick="supprimerFilm(@film.IdFilm)">
+                                <i class="mdi mdi-delete"></i> Supprimer
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<nav aria-label="Page navigation" style="margin-top: 30px;">
+    @Html.PagedListPager(Model, page =>
+            Url.Action("Index", new { page, searchQuery = currentSearchQuery, filter = currentFilter, pageSize = currentPageSize}),
+            new PagedListRenderOptions
+    {
+        Display = PagedListDisplayMode.IfNeeded,
+        UlElementClasses = new[] { "pagination", "justify-content-center" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" },
+        ActiveLiElementClass = "active"
+    })
+</nav>

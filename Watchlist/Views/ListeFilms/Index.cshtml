@@ -1,0 +1,190 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Watchlist.Models.ModeleVueFilm>
+
+@{
+    ViewData["Title"] = "index";
+}
+
+<section class="section list_section section_page">
+    <div class="container">
+        <div class="justify-content-center row">
+            <div class="col-lg-12">
+                <div class="candidate-list-widgets mb-4">
+                    <form action="#" class="">
+                        <div class="g-2 row">
+                            <div class="col-lg-6">
+                                <div class="filler-job-form">
+                                    <i class="uil uil-briefcase-alt"></i><input id="searchQuery" placeholder="Titre, année ... " type="search" class="form-control filler-job-input-box form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div>
+                                    <a class="btn btn-primary" id="search-submit"><i class="uil uil-filter"></i> Filter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="align-items-center row">
+                    <div class="col-lg-8">
+                        <div class="mb-3 mb-lg-0">
+                            <h6 class="fs-16 mb-0">
+                                Showing @ViewBag.StartItem – @ViewBag.EndItem of @ViewBag.TotalFilms results
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="candidate-list-widgets">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="selection-widget">
+                                        <select class="form-select custom-select-user" data-trigger="true" name="choices-single-filter-orderby" id="choices-single-filter-orderby" aria-label="Default select example">
+                                            <option selected="">Filtrer par :</option>
+                                            <option value="1">Titre</option>
+                                            <option value="2">Films vus</option>
+                                            <option value="3">Films non vus</option>
+                                            <option value="7">Films bien notés (≥ 7 étoiles)</option>
+                                            <option value="4">Films moyens (≥ 4 étoiles)</option>
+                                            <option value="0">Films mal notés (≤ 3 étoiles)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="selection-widget mt-2 mt-lg-0">
+                                        <select class="form-select" data-trigger="true" name="choices-candidate-page" id="pagination-select" aria-label="Default select example">
+                                            <option value="" selected="">All :</option>
+                                            <option value="8">8 per page</option>
+                                            <option value="12">12 per page</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="candidate-list">
+                    @await Html.PartialAsync("_FilmsListUser", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            // Lancer la recherche en appuyant sur "Entrée"
+            $('#searchQuery').on('keypress', function (e) {
+                if (e.which === 13) {
+                    lancerRecherche();
+                }
+            });
+
+            // Lancer la recherche en cliquant sur le bouton "Rechercher"
+            $('#search-submit').on('click', function (e) {
+                e.preventDefault();
+                lancerRecherche();
+            });
+
+            // Lancer le tri en gardant la recherche en cours
+            $('#choices-single-filter-orderby').on('change', function () {
+                var filter = $(this).val(); // Récupération du filtre sélectionné
+                var searchQuery = $('#searchQuery').val().trim(); // Récupération de la recherche actuelle
+
+                var url = "/ListeFilms?filter=" + filter;
+                if (searchQuery !== "") {
+                    url += "&searchQuery=" + encodeURIComponent(searchQuery);
+                }
+
+                chargerFilms(url);
+            });
+
+            // Gestion de la pagination en AJAX (évite le rechargement de la page)
+            $(".candidate-list").on("click", ".pagination a", function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr("href");
+                var searchQuery = $('#searchQuery').val().trim();
+                var filter = $('#choices-single-filter-orderby').val();
+
+                if (searchQuery !== "") {
+                    url += "&searchQuery=" + encodeURIComponent(searchQuery);
+                }
+                if (filter !== "") {
+                    url += "&filter=" + filter;
+                }
+
+                chargerFilms(url);
+            });
+
+            // Fonction pour charger les films en AJAX (évite le rechargement complet de la page)
+            function chargerFilms(url) {
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    success: function (data) {
+                        $(".candidate-list").html($(data).find(".candidate-list").html()); // Mise à jour AJAX
+                    },
+                    error: function () {
+                        console.error("Erreur lors du chargement des films.");
+                        $(".candidate-list").html('<p>Une erreur est survenue.</p>');
+                    }
+                });
+            }
+
+            // Fonction pour exécuter la recherche
+            function lancerRecherche() {
+                var query = $('#searchQuery').val().trim();
+
+                if (query === "") {
+                    chargerFilms("/ListeFilms"); // Retour à la liste complète si le champ est vide
+                } else {
+                    chargerFilms("/ListeFilms?searchQuery=" + encodeURIComponent(query));
+                }
+            }
+
+            $('#pagination-select').on('change', function () {
+                var pageSize = $(this).val();
+                var url = new URL(window.location.href);
+
+                url.searchParams.set("pageSize", pageSize);
+                url.searchParams.set("page", "1"); // Réinitialise la pagination
+
+                window.location.href = url.toString();
+            });
+
+        });
+
+
+    </script>
+    <script>
+        function supprimerFilm(idFilm) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer ce film ?")) {
+                fetch(`/Films/AjouterSupprimer?id=${idFilm}&val=1`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data === 0) { // Film supprimé avec succès
+                        alert("Film supprimé !");
+                        location.reload(); // Recharge la page pour mettre à jour la liste
+                    } else {
+                        alert("Une erreur s'est produite.");
+                    }
+                })
+                .catch(error => console.error("Erreur:", error));
+            }
+        }
+    </script>
+
+
+}

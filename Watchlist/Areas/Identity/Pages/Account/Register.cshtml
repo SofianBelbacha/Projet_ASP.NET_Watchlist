@@ -1,0 +1,80 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Inscription";
+}
+
+<section class="section mt-5">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row w-100">
+        <!-- Formulaire d'inscription -->
+        <div class="col-md-6 mx-auto">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4 fw-bold">Créer un compte</h2>
+                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="name@example.com" />
+                            <label asp-for="Input.Email"><i class="fa fa-envelope me-2"></i>Email</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Password" type="password" class="form-control" autocomplete="new-password" placeholder="Mot de passe" />
+                            <label asp-for="Input.Password"><i class="fa fa-lock me-2"></i>Mot de passe</label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.ConfirmPassword" type="password" class="form-control" autocomplete="new-password" placeholder="Confirmer le mot de passe" />
+                            <label asp-for="Input.ConfirmPassword"><i class="fa fa-lock me-2"></i>Confirmer le mot de passe</label>
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary shadow-sm">S'inscrire</button>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <small>Déjà un compte ? <a asp-page="./Login" class="fw-bold">Se connecter</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connexion via des services externes -->
+        <div class="col-md-6 mx-auto mt-4">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4 text-center">
+                    <h3 class="fw-bold">S'inscrire avec un service externe</h3>
+                    <hr />
+                    @{
+                        if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                        {
+                            <p class="text-muted">
+                                Aucun service d'authentification externe n'est configuré. Consultez cet
+                                <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article</a> pour en savoir plus.
+                            </p>
+                        }
+                        else
+                        {
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="d-grid gap-2">
+                                @foreach (var provider in Model.ExternalLogins!)
+                                {
+                                    <button type="submit" class="btn btn-outline-primary btn-lg" name="provider" value="@provider.Name">
+                                        <i class="fab fa-@provider.DisplayName.ToLower() me-2"></i> S'inscrire avec @provider.DisplayName
+                                    </button>
+                                }
+                            </form>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

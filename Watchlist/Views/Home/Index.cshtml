@@ -1,0 +1,325 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+        <img src="~/img/backgound_home_page.jpg" alt="" data-aos="fade-in">
+
+      <div class="container">
+
+        <div class="row justify-content-center text-center" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-xl-7 col-lg-8">
+            <h2>Bienvenue sur votre application Watchlist<span>.</span></h2>
+            <p>Consultez, ajoutez, évaluez et suivez toutes vos séries et films</p>
+          </div>
+        </div>
+
+        <div class="row gy-4 mt-5 justify-content-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="icon-box">
+                    <i class="bi bi-binoculars"></i>
+                    <h3><a href="">Explorez des Films</a></h3>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="icon-box">
+                    <i class="bi bi-bullseye"></i>
+                    <h3><a href="">Suivez Vos Favoris</a></h3>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="icon-box">
+                    <i class="bi bi-fullscreen-exit"></i>
+                    <h3><a href="">Avis et Notes</a></h3>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="600">
+                <div class="icon-box">
+                    <i class="bi bi-card-list"></i>
+                    <h3><a href="">Recommandations Personnalisées</a></h3>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="700">
+                <div class="icon-box">
+                    <i class="bi bi-gem"></i>
+                    <h3><a href="">Communauté Passionnée</a></h3>
+                </div>
+            </div>
+        </div>
+
+
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+            <div class="row gy-4">
+                <div class="col-lg-6 order-1 order-lg-2">
+                    <img src="~/img/watchlist_Home_Picture_image.jpg" class="img-fluid" alt="Image de Watchlist">
+                </div>
+                <div class="col-lg-6 order-2 order-lg-1 content">
+                    <h3>Découvrez Watchlist : Votre Bibliothèque de Films Personnelle</h3>
+                    <p class="fst-italic">
+                        Watchlist est une plateforme dédiée aux cinéphiles, permettant de suivre, organiser et découvrir de nouveaux films facilement.
+                    </p>
+                    <ul>
+                        <li><i class="bi bi-check2-all"></i> <span>Ajoutez vos films préférés à votre liste personnalisée.</span></li>
+                        <li><i class="bi bi-check2-all"></i> <span>Évaluez et laissez des commentaires sur les films que vous avez vus.</span></li>
+                        <li><i class="bi bi-check2-all"></i> <span>Découvrez de nouvelles suggestions en fonction de vos goûts et des tendances du moment.</span></li>
+                    </ul>
+                    <p>
+                        Que vous soyez amateur de classiques du cinéma ou passionné de nouveautés, Watchlist vous aide à ne jamais manquer un film à voir absolument. Rejoignez-nous dès aujourd’hui et construisez votre collection de films idéale !
+                    </p>
+                </div>
+            </div>
+      </div>
+
+    </section><!-- /About Section -->
+
+    <!-- Clients Section -->
+    <section id="clients" class="clients section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              },
+              "breakpoints": {
+                "320": {
+                  "slidesPerView": 2,
+                  "spaceBetween": 40
+                },
+                "480": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 60
+                },
+                "640": {
+                  "slidesPerView": 4,
+                  "spaceBetween": 80
+                },
+                "992": {
+                  "slidesPerView": 6,
+                  "spaceBetween": 120
+                }
+              }
+            }
+          </script>
+          <div class="swiper-wrapper align-items-center">
+            <div class="swiper-slide"><img src="~/img/clients/client-1.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="~/img/clients/client-2.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="~/img/clients/client-3.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="~/img/clients/client-4.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="~/img/clients/client-5.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="~/img/clients/client-6.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="~/img/clients/client-7.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="~/img/clients/client-8.png" class="img-fluid" alt=""></div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    </section><!-- /Clients Section -->
+
+    <!-- Features Section -->
+    <section id="features" class="features section">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="features-image col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <img src="~/img/List_Film_Home.png" alt="Fonctionnalités de Watchlist">
+                </div>
+                <div class="col-lg-6">
+
+                    <div class="features-item d-flex ps-0 ps-lg-3 pt-4 pt-lg-0" data-aos="fade-up" data-aos-delay="200">
+                        <i class="bi bi-list-check flex-shrink-0"></i>
+                        <div>
+                            <h4>Créez votre liste de films</h4>
+                            <p>Ajoutez facilement des films à votre watchlist et organisez-les selon vos envies.</p>
+                        </div>
+                    </div><!-- End Features Item-->
+
+                    <div class="features-item d-flex mt-5 ps-0 ps-lg-3" data-aos="fade-up" data-aos-delay="300">
+                        <i class="bi bi-star flex-shrink-0"></i>
+                        <div>
+                            <h4>Évaluez et commentez</h4>
+                            <p>Donnez votre avis sur les films que vous regardez et découvrez ce que pensent les autres utilisateurs.</p>
+                        </div>
+                    </div><!-- End Features Item-->
+
+                    <div class="features-item d-flex mt-5 ps-0 ps-lg-3" data-aos="fade-up" data-aos-delay="400">
+                        <i class="bi bi-film flex-shrink-0"></i>
+                        <div>
+                            <h4>Découvrez de nouveaux films</h4>
+                            <p>Accédez à des recommandations basées sur vos goûts et explorez des films populaires.</p>
+                        </div>
+                    </div><!-- End Features Item-->
+
+                    <div class="features-item d-flex mt-5 ps-0 ps-lg-3" data-aos="fade-up" data-aos-delay="500">
+                        <i class="bi bi-person-check flex-shrink-0"></i>
+                        <div>
+                            <h4>Suivez vos amis</h4>
+                            <p>Partagez vos listes avec vos amis et voyez ce qu’ils regardent en ce moment.</p>
+                        </div>
+                    </div><!-- End Features Item-->
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /Features Section -->
+
+    <!-- Call To Action Section -->
+    <section id="call-to-action" class="call-to-action section dark-background">
+
+        <img src="~/img/cta-bg.jpg" alt="Regardez vos films préférés">
+
+        <div class="container">
+            <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
+                <div class="col-xl-10">
+                    <div class="text-center">
+                        <h3>Créez votre Watchlist dès maintenant !</h3>
+                        <p>Ne perdez plus jamais de vue les films que vous souhaitez voir ! Ajoutez-les à votre liste, suivez vos visionnages et découvrez de nouvelles recommandations personnalisées.</p>
+                        <a class="cta-btn" href="/Identity/Account/Register">Rejoignez-nous</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section><!-- /Call To Action Section -->
+
+    <!-- Team Section -->
+    <section id="team" class="team section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Notre Équipe</h2>
+            <p>Les passionnés derrière Watchlist</p>
+        </div><!-- End Section Title -->
+
+        <div class="container">
+
+            <div class="row gy-4">
+                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
+                    <div class="team-member">
+                        <div class="member-img">
+                            <img src="~/img/team/profile-logo-team.webp" class="img-fluid" alt="Membre anonyme">
+                            <div class="social">
+                                <a href=""><i class="bi bi-github"></i></a>
+                                <a href=""><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="member-info">
+                            <h4>Sofian Belbacha</h4>
+                            <span>Développeur & Contributeur</span>
+                        </div>
+                    </div>
+                </div><!-- End Team Member -->
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- /Team Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+            <p>Contactez-nous</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
+          <iframe style="border:0; width: 100%; height: 270px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div><!-- End Google Maps -->
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4">
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+              <i class="bi bi-geo-alt flex-shrink-0"></i>
+              <div>
+                <h3>Addresse</h3>
+                <p>Béziers France(34)</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+              <i class="bi bi-telephone flex-shrink-0"></i>
+              <div>
+                <h3>Appelez-nous</h3>
+                <p>+1 5589 55488 55</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+              <i class="bi bi-envelope flex-shrink-0"></i>
+              <div>
+                 <h3>Écrivez-nous</h3>
+                <p>sofianbelbacha@gmail.com</p>
+              </div>
+            </div><!-- End Info Item -->
+
+          </div>
+
+          <div class="col-lg-8">
+            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" placeholder="Votre nom" required="">
+                </div>
+
+                <div class="col-md-6 ">
+                  <input type="email" class="form-control" name="email" placeholder="Votre Email" required="">
+                </div>
+
+                <div class="col-md-12">
+                  <input type="text" class="form-control" name="subject" placeholder="Objet" required="">
+                </div>
+
+                <div class="col-md-12">
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">Votre message a été envoyé. Merci!</div>
+
+                  <button type="submit">Envoyer</button>
+                </div>
+
+              </div>
+            </form>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Contact Section -->
+
+  </main>

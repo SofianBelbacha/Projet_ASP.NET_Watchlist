@@ -1,0 +1,41 @@
+﻿@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
+    {
+        Layout = parentLayout.ToString();
+    }
+    else
+    {
+        Layout = "/Views/Shared/_Layout.cshtml"; // Utilise la mise en page principale de l'app
+    }
+}
+
+<section class="section section_page py-4">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h1 class="fw-bold">Gestion de votre compte</h1>
+            <p class="text-muted">Modifiez vos paramètres et informations personnelles</p>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="card shadow-sm p-3">
+                    <partial name="_ManageNav" />
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

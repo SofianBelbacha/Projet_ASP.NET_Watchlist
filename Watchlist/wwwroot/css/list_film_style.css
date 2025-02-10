@@ -1,0 +1,193 @@
+﻿
+/* ===== Career ===== */
+.list_film_section .career-form {
+    --background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    padding: 0 16px;
+    background-color: var(--background-color);
+}
+
+.list_film_section .career-form .form-control {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 0;
+    padding: 12px 15px;
+    color: #fff;
+}
+
+.list_film_section .career-form .form-control::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #fff;
+}
+
+.list_film_section .career-form .form-control::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #fff;
+}
+
+.list_film_section .career-form .form-control:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #fff;
+}
+
+.list_film_section .career-form .form-control:-moz-placeholder {
+    /* Firefox 18- */
+    color: #fff;
+}
+
+    .list_film_section .career-form .custom-select, .list_film_section .career-form .custom-select-element {
+        border: 2px solid var(--accent-color);
+        padding: 12px 15px;
+        color: #fff;
+        width: 100%;
+        border-radius: 5px;
+        text-align: left;
+        height: auto;
+        background-image: none;
+        --accent-color: #ffc451;
+        background-color: unset;
+        padding-left: 35px;
+    }
+
+.list_film_section .career-form .custom-select option, .list_film_section .career-form .custom-select-element option {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.list_film_section .career-form .custom-select:focus, list_film_section .career-form .custom-select-element:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.list_film_section .career-form .select-container {
+    position: relative;
+    gap :8px;
+    margin-right: 10px;
+}
+
+.list_film_section .career-form .select-container:before {
+    position: absolute;
+    right: 15px;
+    top: calc(50% - 14px);
+    font-size: 18px;
+    color: #ffffff;
+    content: '\F2F9';
+    font-family: "Material-Design-Iconic-Font";
+}
+
+.list_film_section .filter-result .job-box {
+    background: #fff;
+    -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+    box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+    border-radius: 10px;
+    padding: 10px 35px;
+}
+
+.list_film_section ul {
+    list-style: none;
+}
+
+.list_film_section .list-disk li {
+    list-style: none;
+    margin-bottom: 12px;
+}
+
+.list_film_section .list-disk li:last-child {
+    margin-bottom: 0;
+}
+
+.list_film_section .job-box .img-holder {
+    height: 65px;
+    width: 65px;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.list_film_section .career-title {
+    background-color: #4e63d7;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    background-image: -webkit-gradient(linear, left top, right top, from(rgba(78, 99, 215, 0.9)), to(#5a85dd));
+    background-image: linear-gradient(to right, rgba(78, 99, 215, 0.9) 0%, #5a85dd 100%);
+}
+
+.list_film_section .job-overview {
+    -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+    box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+    border-radius: 10px;
+}
+
+@media (min-width: 992px) {
+    .job-overview {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 70px;
+    }
+}
+
+.list_film_section .job-overview .job-detail ul {
+    margin-bottom: 28px;
+}
+
+.list_film_section .job-overview .job-detail ul li {
+    opacity: 0.75;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.list_film_section .job-overview .job-detail ul li i {
+    font-size: 20px;
+    position: relative;
+    top: 1px;
+}
+
+.list_film_section .job-overview .overview-bottom,
+.list_film_section .job-overview .overview-top {
+    padding: 35px;
+}
+
+.list_film_section .job-content ul li {
+    font-weight: 600;
+    opacity: 0.75;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 5px;
+}
+
+@media (min-width: 768px) {
+    .job-content ul li {
+        border-bottom: 0;
+        padding: 0;
+    }
+}
+
+.list_film_section .job-content ul li i {
+    font-size: 20px;
+    position: relative;
+    top: 1px;
+}
+
+.list_film_section .mb-30 {
+    margin-bottom: 30px;
+}
+
+.infos-list-section .font-weight-bold {
+    font-weight: 700 !important;
+}
+
+.infos-list-section .active {
+    background: #f6f7fb !important;
+    border-color: #f6f7fb !important;
+    color: #000 !important;
+}
+
+.infos-list-section .new {
+    background-color: #ffc451;
+    border: none;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.infos-list-section .btn {
+    border-radius: 25px;
+    margin-left: 10px;
+}

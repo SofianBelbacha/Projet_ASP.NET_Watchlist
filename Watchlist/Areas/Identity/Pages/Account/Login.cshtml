@@ -1,0 +1,83 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Connexion";
+}
+<section class="section mt-5">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="row w-100">
+            <!-- Formulaire de connexion -->
+            <div class="col-md-6 mx-auto">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-body p-5">
+                        <h2 class="text-center mb-4 fw-bold">Se connecter</h2>
+                        <form id="account" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="name@example.com" />
+                                <label asp-for="Input.Email"><i class="fa fa-envelope me-2"></i>Email</label>
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Input.Password" type="password" class="form-control" autocomplete="current-password" placeholder="Mot de passe" />
+                                <label asp-for="Input.Password"><i class="fa fa-lock me-2"></i>Mot de passe</label>
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" asp-for="Input.RememberMe" />
+                                <label asp-for="Input.RememberMe" class="form-check-label">
+                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                </label>
+                            </div>
+
+                            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary shadow-sm">Se connecter</button>
+
+                            <div class="text-center mt-3">
+                                <p><a id="forgot-password" asp-page="./ForgotPassword" class="text-decoration-none">Mot de passe oublié ?</a></p>
+                                <p><a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-decoration-none">Créer un compte</a></p>
+                                <p><a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="text-decoration-none">Renvoyer l'email de confirmation</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connexion via un service externe -->
+            <div class="col-md-6 mx-auto mt-4">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-body p-4 text-center">
+                        <h3 class="fw-bold">Se connecter avec un service externe</h3>
+                        <hr />
+                        @{
+                            if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                            {
+                                <p class="text-muted">
+                                    Aucun service d'authentification externe n'est configuré. Consultez cet
+                                    <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article</a> pour en savoir plus.
+                                </p>
+                            }
+                            else
+                            {
+                                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="d-grid gap-2">
+                                    @foreach (var provider in Model.ExternalLogins!)
+                                    {
+                                        <button type="submit" class="btn btn-outline-primary btn-lg" name="provider" value="@provider.Name">
+                                            <i class="fab fa-@provider.DisplayName.ToLower() me-2"></i> Se connecter avec @provider.DisplayName
+                                        </button>
+                                    }
+                                </form>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

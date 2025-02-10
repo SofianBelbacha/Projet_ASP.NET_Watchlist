@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Watchlist</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- Favicons -->
+    <link href="~/img/favicon.png" rel="icon">
+    <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/vendor/aos/aos.css" rel="stylesheet">
+    <link href="~/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="~/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+
+    <!-- CSS File -->
+    <link href="~/css/main.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/css/list_style.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/css/list_film_style.css" rel="stylesheet" asp-append-version="true">
+
+</head>
+<body class="index-page">
+    
+    <!-- Header du layout -->
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center me-auto me-lg-0">
+                <h1 class="sitename">Watchlist</h1><span>.</span>
+            </a>
+
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a class="active" asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
+                    <li><a href="#about">À propos</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                    <li class="dropdown">
+                        <a asp-area="" asp-controller="Films" asp-action="Index"><span>Films</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
+                            <li><a asp-area="" asp-controller="Films" asp-action="Index">Liste de films</a></li>
+                            <li><a asp-area="" asp-controller="ListeFilms" asp-action="Index">Mes films</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#contact">Contact</a></li>
+
+                    <!-- Ajouter le menu utilisateur en responsive -->
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="dropdown d-xl-none">
+                            <a id="userDropdownMobile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-user-circle-o" style="font-size:22px;"></i>
+                                <span class="user-name">@User.Identity.Name</span> <i class="bi bi-chevron-down toggle-dropdown"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Mon profil</a></li>
+                                <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/ChangePassword">Changer mot de passe</a></li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin</a></li>
+                                }
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form method="post" asp-area="Identity" asp-page="/Account/Logout">
+                                        <button type="submit" class="dropdown-item">Déconnexion</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+
+            <!-- Menu utilisateur en mode bureau uniquement -->
+            @await Html.PartialAsync("_LoginPartial")
+
+        </div>
+    </header>
+
+    @RenderBody()
+
+    <!-- footer du layout -->
+    <footer id="footer" class="footer dark-background">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-lg-4 col-md-6 footer-about">
+                        <a href="index.html" class="logo d-flex align-items-center">
+                            <span class="sitename">Watchlist</span>
+                        </a>
+                        <div class="footer-contact pt-3">
+                            <p>A108 Adam Street</p>
+                            <p>New York, NY 535022</p>
+                            <p class="mt-3"><strong>téléphone :</strong> <span>+1 5589 55488 55</span></p>
+                            <p><strong>Email:</strong> <span>sofianbelbacha@gmail.com</span></p>
+                        </div>
+                        <div class="social-links d-flex mt-4">
+                            <a href="https://github.com/SofianBelbacha" target="_blank"><i class="bi bi-github"></i></a>
+                            <a href="https://www.linkedin.com/in/sofian-belbacha" target="_blank"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-3 footer-links">
+                        <h4>Liens</h4>
+                        <ul>
+                            <li><i class="bi bi-chevron-right"></i> <a href="#"> Home</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="#"> À propos</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a asp-area="" asp-controller="Home" asp-action="Privacy"> Privacy</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a asp-area="" asp-controller="Films" asp-action="Index"> Films</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="#"> Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-2 col-md-3 footer-links">
+                        <h4>Nos Services</h4>
+                        <ul>
+                            <li><i class="bi bi-chevron-right"></i> <a href="#"> Web Design</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="#"> Développement Web</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="#"> Administration réseaux et BDD</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="#"> Graphic Design</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="#"> Développement DESKTOP</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 footer-newsletter">
+                        <h4>Notre Newsletter</h4>
+                        <p> Abonnez-vous à notre newsletter pour être tenu informé des dernières nouveautés de nos produits et services!</p>
+                        <form action="forms/newsletter.php" method="post" class="php-email-form">
+                            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+                            <div class="loading">Loading</div>
+                            <div class="error-message"></div>
+                            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <div class="container text-center">
+                <p>© <span>Copyright</span> <strong class="px-1 sitename">Watchlist</strong> <span>All Rights Reserved</span></p>
+                <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you've purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/php-email-form/validate.js"></script>
+    <script src="~/vendor/aos/aos.js"></script>
+    <script src="~/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="~/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/vendor/purecounter/purecounter_vanilla.js"></script>
+
+    <!-- Main JS File -->
+    <script src="~/js/main.js" asp-append-version="true"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

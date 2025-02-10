@@ -1,0 +1,194 @@
+﻿
+
+.list_section .card {
+    box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+}
+
+.list_section .avatar-md {
+    width: 100px;
+}
+
+.list_section .fs-19 {
+    font-size: 19px;
+}
+
+.list_section .primary-link {
+    color: #314047;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.list_section a {
+    color: #02af74;
+    text-decoration: none;
+}
+
+.list_section .bookmark-post .favorite-icon a, .job-box.bookmark-post .favorite-icon a {
+    background-color: #da3746;
+    color: #fff;
+    border-color: danger;
+}
+
+.list_section .favorite-icon a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #eff0f2;
+    border-radius: 6px;
+    color: rgba(173,181,189,.55);
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+
+.list_section .candidate-list-box .favorite-icon {
+    position: absolute;
+    right: 22px;
+    top: 22px;
+}
+
+.list_section .fs-14 {
+    font-size: 14px;
+}
+
+.list_section .bg-soft-secondary {
+    background-color: rgba(116,120,141,.15) !important;
+    color: #74788d !important;
+}
+
+.list_section .mt-1 {
+    margin-top: 0.25rem !important;
+}
+
+
+.searchBox {
+    position: relative;
+    background: #2f3640;
+    height: 60px; /* Plus grand */
+    border-radius: 50px;
+    padding: 10px 20px; /* Équilibre le padding gauche/droite */
+    display: flex;
+    align-items: center;
+    transition: all 0.4s ease-in-out;
+    min-width: 60px; /* Empêche le rétrécissement total */
+    overflow: hidden;
+}
+
+.searchInput {
+    border: none;
+    background: none;
+    outline: none;
+    color: white;
+    font-size: 18px;
+    transition: width 0.4s ease-in-out, padding 0.4s ease-in-out;
+    width: 0px; /* Caché par défaut */
+    flex-grow: 1;
+    height: 60px;
+    text-align: left; /* Garde le texte bien aligné */
+}
+
+.searchButton {
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #2f3640;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+/* Effet au survol (uniquement sur desktop) */
+@media screen and (min-width: 769px) {
+    .searchBox {
+        width: 60px;
+    }
+
+        .searchBox:hover {
+            width: 300px;
+            justify-content: space-between;
+        }
+
+            .searchBox:hover .searchInput {
+                width: 220px;
+            }
+}
+
+/* Mode mobile */
+@media screen and (max-width: 768px) {
+    .searchBox {
+        width: 100%;
+        justify-content: space-between;
+        padding: 15px 0;
+    }
+
+    .searchInput {
+        width: 100%;
+        padding: 0 20px;
+        font-size: 16px;
+    }
+
+    .searchButton {
+        width: 45px;
+        height: 45px;
+        right: 10px;
+    }
+}
+
+
+
+/* Conteneur du select avec icône */
+.icon-select {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Icône positionnée à l'intérieur du select */
+.icon-select i {
+    position: absolute;
+    left: 10px; /* Espacement de l'icône */
+    font-size: 18px;
+    color: white;
+    pointer-events: none; /* Empêche l'icône d'interagir avec le clic */
+}
+
+/* Style du select avec un padding à gauche pour l'icône */
+.icon-select select {
+    padding-left: 40px; /* Augmenter cet espace pour éviter que le texte chevauche l'icône */
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    appearance: none; /* Supprime le style natif des selects */
+    background-color: #333;
+    color: white;
+}
+
+/* Supprimer la flèche par défaut du select */
+.icon-select select::-ms-expand {
+    display: none;
+}
+
+/* Style pour le focus */
+.icon-select select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+@media screen and (max-width: 767px) {
+    .job-left .job-content {
+        margin-top: 120px;
+    }
+}

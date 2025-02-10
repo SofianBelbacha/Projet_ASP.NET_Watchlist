@@ -1,0 +1,51 @@
+﻿@model Watchlist.Models.ModeleVueFilm
+
+@{
+    ViewData["Title"] = "Modifier le Film";
+}
+
+<section class="section section_page">
+    <div class="row mx-auto" style="width: 560px;">
+        <div class="container mt-5">
+            <div class="card shadow-lg p-4">
+                <h2 class="text-center mb-4">Modifier les informations du film</h2>
+
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <input type="hidden" asp-for="IdFilm" />
+
+                    <!-- Checkbox pour "Vu" -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" asp-for="Vu" id="vuCheckbox" />
+                        <label class="form-check-label fw-bold" for="vuCheckbox">
+                            @Html.DisplayNameFor(model => model.Vu)
+                        </label>
+                    </div>
+
+                    <!-- Note du film -->
+                    <div class="mb-3">
+                        <label asp-for="Note" class="form-label fw-bold">Note</label>
+                        <input asp-for="Note" class="form-control" placeholder="Entrez une note entre 0 et 10" />
+                        <span asp-validation-for="Note" class="text-danger"></span>
+                    </div>
+
+                    <!-- Boutons -->
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Retour à la liste
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-save"></i> Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

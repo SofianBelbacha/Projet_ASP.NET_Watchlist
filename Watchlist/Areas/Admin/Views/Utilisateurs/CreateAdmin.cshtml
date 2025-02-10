@@ -1,0 +1,33 @@
+﻿@model Watchlist.Data.Utilisateur
+
+@{
+    ViewData["Title"] = "Créer un utilisateur Admin";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+<form asp-action="CreateAdmin" method="post">
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>Mot de passe</label>
+        <input type="password" name="password" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-success">Créer l'admin</button>
+    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+</form>
+

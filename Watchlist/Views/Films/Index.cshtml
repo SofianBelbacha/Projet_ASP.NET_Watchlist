@@ -1,0 +1,151 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Watchlist.Models.ModeleVueFilm>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="section list_film_section section_page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 mx-auto mb-4">
+                <div class="section-title text-center ">
+                    <h3 class="top-c-sep">Développez votre passion pour le cinéma avec nous</h3>
+                    <p>Organisez votre liste, notez vos visionnages et découvrez de nouvelles pépites cinématographiques adaptées à vos goûts. Avec Watchlist, chaque film compte !</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+			<div class="col-lg-10 mx-auto my-2">
+                <div class="d-flex justify-content-between align-items-center infos-list-section my-3">
+					<span class="font-weight-bold">Watchlist</span>
+					<div class="d-flex flex-row">
+                        <button class="btn btn-primary mr-2 py-2 active"><a class="text-decoration-none" style="color: unset;" asp-controller="ListeFilms" asp-action="Index">Ma liste</a></button>
+                        <button class="btn btn-primary new py-2"><a asp-action="Index" class="text-decoration-none" style="color: unset;"><i class="fa fa-refresh"></i> Recharger</a></button>
+                    </div>
+				</div>
+                <div class="career-search mb-60">
+                    <form action="#" class="career-form mb-60" style="position: relative;">
+                        <div class="row" style="justify-content: space-between;align-items: center;">
+                            <div class="searchBox col-md-6 col-lg-5 ms-3">
+                                <input class="searchInput" type="search" name="searchQuery" placeholder="Search" id="searchQuery" value="@Context.Request.Query["searchQuery"]"/>
+                                <button class="searchButton" id="searchButton" type="submit">
+                                    <i class="material-icons">
+                                        search
+                                    </i>
+                                </button>
+                            </div>
+                            <div class="col-md-6 col-lg-7 my-3 d-flex justify-content-end">
+								<div class="select-container">
+									<div class="icon-select">
+										<i class="fa fa-eye"></i>
+										<select id="pagination-select" class="custom-select-element">
+											<option value="" selected="">All :</option>
+											<option value="8">8 per page</option>
+											<option value="12">12 per page</option>
+										</select>
+									</div>
+								</div>
+								<div class="select-container" style="width: 150px;">
+									<div class="icon-select">
+										<i class="fa fa-filter"></i>
+										<select class="custom-select">
+											<option value="" selected="">Filtrer par :</option>
+											<option value="1">année</option>
+											<option value="2">Titre (A-Z)</option>
+											<option value="3">Titre (Z-A)</option>
+										</select>
+									</div>
+								</div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="filter-result">
+                        @await Html.PartialAsync("_FilmsList", Model)  <!-- Ajout de la vue partielle -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".filter-result").on("click", ".btnAjoutSuppr", function (e) {
+                var btn = $(this);
+                var idFilm = btn.attr('id');
+                var valFilm = btn.attr('data-val') == "False" ? 0 : 1;
+
+                $.get('/Films/AjouterSupprimer', { id: idFilm, val: valFilm }, function (data) {
+                    if (data == 0) {
+                        btn.attr('data-val', 'False').html('Ajouter');
+                    } else if (data == 1) {
+                        btn.attr('data-val', 'True').html('Supprimer');
+                    }
+                });
+            });
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            // Lancer la recherche en appuyant sur "Entrée"
+            $('#searchQuery').on('keypress', function (e) {
+                if (e.which === 13) { // Code 13 = Touche "Entrée"
+                    lancerRecherche();
+                }
+            });
+
+            // Lancer la recherche en cliquant sur le bouton "Rechercher"
+            $('#searchButton').on('click', function () {
+                lancerRecherche();
+            });
+
+            // Lancer le tri en gardant la recherche en cours
+            $('.custom-select').on('change', function () {
+                var sortOption = $(this).val(); // Récupération de l'option de tri sélectionnée
+                var searchQuery = $('#searchQuery').val().trim(); // Récupération de la recherche actuelle
+
+                var url = "/Films?sortOption=" + sortOption;
+                if (searchQuery !== "") {
+                    url += "&searchQuery=" + encodeURIComponent(searchQuery);
+                }
+
+                window.location.href = url;
+            });
+
+            // Fonction pour exécuter la recherche
+            function lancerRecherche() {
+                var query = $('#searchQuery').val().trim();
+
+                if (query === "") {
+                    window.location.href = "/Films"; // Retour à la liste complète si le champ est vide
+                } else {
+                    window.location.href = "/Films?searchQuery=" + encodeURIComponent(query);
+                }
+            }
+            $(".filter-result").on("click", ".pagination a", function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr("href");
+                var searchQuery = $("#searchQuery").val();
+
+                $.get(url, { searchQuery: searchQuery }, function (data) {
+                    $(".filter-result").html($(data).find(".filter-result").html());
+                });
+            });
+            $('#pagination-select').on('change', function () {
+                var pageSize = $(this).val();
+                var url = new URL(window.location.href);
+
+                url.searchParams.set("pageSize", pageSize);
+                url.searchParams.set("page", "1"); // Réinitialisation de la pagination
+
+                window.location.href = url.toString();
+            });
+        });
+    </script>
+}
