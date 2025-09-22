@@ -26,4 +26,4 @@ services:
       sqlserver:
         condition: service_healthy
     ports:
-      - "10000:5000"
+      - "7234:5000"
