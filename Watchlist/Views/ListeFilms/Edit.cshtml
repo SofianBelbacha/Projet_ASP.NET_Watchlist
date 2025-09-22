@@ -25,7 +25,7 @@
                     <!-- Note du film -->
                     <div class="mb-3">
                         <label asp-for="Note" class="form-label fw-bold">Note</label>
-                        <input asp-for="Note" class="form-control" placeholder="Entrez une note entre 0 et 10" />
+                        <input asp-for="Note" class="form-control" placeholder="Entrez une note entre 0 et 10" type="number" min="0" max="10" />
                         <span asp-validation-for="Note" class="text-danger"></span>
                     </div>
 

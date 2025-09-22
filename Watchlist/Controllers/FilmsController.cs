@@ -16,7 +16,7 @@ using Watchlist.Services;
 
 namespace Watchlist.Controllers
 {
-    [Authorize]
+    
     public class FilmsController : Controller
     {
         private readonly ApplicationDbContext _context;
