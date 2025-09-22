@@ -16,8 +16,7 @@ namespace Watchlist
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = Environment.GetEnvironmentVariable("DefaultConnection")
-                                   ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
@@ -84,15 +83,15 @@ namespace Watchlist
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.MapRazorPages();
-
+            
             using (var scope = app.Services.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                db.Database.Migrate(); // Applique toutes les migrations
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate(); // Applique toutes les migrations
 
-                var logger = scope.ServiceProvider.GetRequiredService<ILogger<IdentitySeeder>>();
-                await IdentitySeeder.SeedRolesAndAdmin(scope.ServiceProvider, logger);
-            }
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<IdentitySeeder>>();
+    await IdentitySeeder.SeedRolesAndAdmin(scope.ServiceProvider, logger);
+}
 
             app.Run();
         }
