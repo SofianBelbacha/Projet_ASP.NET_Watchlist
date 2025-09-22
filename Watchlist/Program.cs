@@ -84,6 +84,15 @@ namespace Watchlist
 
             app.MapRazorPages();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                db.Database.Migrate(); // Applique toutes les migrations
+
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<IdentitySeeder>>();
+                await IdentitySeeder.SeedRolesAndAdmin(scope.ServiceProvider, logger);
+            }
+
             app.Run();
         }
 

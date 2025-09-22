@@ -1,20 +1,20 @@
-# Étape 1  build
-FROM mcr.microsoft.comdotnetsdk8.0 AS build
-WORKDIR app
+# Ã‰tape 1 : Build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
 
-COPY .csproj .
+COPY *.csproj ./
 RUN dotnet restore
 
-COPY . .
-RUN dotnet publish -c Release -o out
+COPY . ./
+RUN dotnet publish -c Release -o /out
 
-# Étape 2  runtime
-FROM mcr.microsoft.comdotnetaspnet8.0 AS runtime
-WORKDIR app
+# Ã‰tape 2 : Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
 
-COPY --from=build out .
+COPY --from=build /out ./
 
 ENV DOTNET_RUNNING_IN_CONTAINER=true
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
-ENTRYPOINT [dotnet, Watchlist.dll]
+ENTRYPOINT ["dotnet", "Watchlist.dll"]
