@@ -28,7 +28,7 @@ public class IdentitySeeder
             }
 
             var adminEmail = Environment.GetEnvironmentVariable("ADMIN_EMAIL") ?? "admin@watchlist.com";
-            string adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD") ?? "5WS2Kb£?u2(3";
+            string adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD") ?? "5WS2Kb58u2(3";
 
             var existingAdmin = await userManager.FindByEmailAsync(adminEmail);
 
@@ -56,6 +56,31 @@ public class IdentitySeeder
                     }
                 }
             }
+            else
+            {
+                // Mettre à jour le mot de passe si nécessaire
+                var token = await userManager.GeneratePasswordResetTokenAsync(existingAdmin);
+                var result = await userManager.ResetPasswordAsync(existingAdmin, token, adminPassword);
+                if (result.Succeeded)
+                {
+                    logger.LogInformation("Mot de passe de l'admin mis à jour.");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        logger.LogError($"Erreur lors de la mise à jour du mot de passe : {error.Description}");
+                    }
+                }
+
+                // Assurer que le rôle Admin est assigné
+                if (!await userManager.IsInRoleAsync(existingAdmin, "Admin"))
+                {
+                    await userManager.AddToRoleAsync(existingAdmin, "Admin");
+                    logger.LogInformation("Rôle Admin ajouté à l'utilisateur existant.");
+                }
+            }
+
         }
         catch (Exception ex)
         {

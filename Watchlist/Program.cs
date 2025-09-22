@@ -20,9 +20,6 @@ namespace Watchlist
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
-
 
             builder.Services.AddIdentity<Utilisateur, IdentityRole>(options => options.User.RequireUniqueEmail = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -40,6 +37,13 @@ namespace Watchlist
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied"; // Définit la page d'accès refusé
                 options.SlidingExpiration = true; // Permet de prolonger la session active
             });
+
+            var port = Environment.GetEnvironmentVariable("PORT");
+            if (!string.IsNullOrEmpty(port))
+            {
+                builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+            }
+
 
             var app = builder.Build();
 
